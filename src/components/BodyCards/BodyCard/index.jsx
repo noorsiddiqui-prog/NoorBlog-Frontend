@@ -2,15 +2,23 @@ import { Box, Typography } from '@mui/material'
 import React from 'react'
 import styles from './bodycard.module.scss'
 import { Circle } from '@mui/icons-material'
+import { useNavigate } from 'react-router-dom'
 
-const BodyCard = ({ data }) => {
-  const { title, image, IconImage, nameTitle, subDate, subTime } = data
+const BodyCard = ({ data, key }) => {
+  const navigate = useNavigate()
+  const { title, image, IconImage, nameTitle, subDate, subTime, id } = data
   return (
     <Box sx={{ position: 'relative' }}>
-      <Box elevation class={styles.bodyCardBg}>
+      <Box
+        elevation
+        class={styles.bodyCardBg}
+        key={key}
+        onClick={() => navigate(`/detail/${id}`)}
+      >
         <Box>
           <Box
             sx={{
+              // width: { lg: '260px', md: '260px', sm: '260px', xs: '100%' },
               width: { lg: '260px', md: '260px', sm: '260px', xs: '100%' },
               height: { lg: '210px', md: '210px', sm: '210px', xs: 'auto' },
             }}

@@ -23,16 +23,32 @@ import InboxIcon from '@mui/icons-material/MoveToInbox'
 import MailIcon from '@mui/icons-material/Mail'
 import styles from './header.module.scss'
 import SearchIcon from '@mui/icons-material/Search'
+import { useNavigate } from 'react-router-dom'
 
 const pages = [
   {
     title: 'Home',
+    path: '/',
   },
   {
     title: 'Category',
+    path: '/category',
   },
   {
     title: 'About Me',
+    path: '/aboutme',
+  },
+  {
+    title: 'Blog',
+    path: '/blog',
+  },
+  {
+    title: 'Login',
+    path: '/login',
+  },
+  {
+    title: 'Signup',
+    path: '/signup',
   },
   {
     title: 'Search',
@@ -42,6 +58,7 @@ const pages = [
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
 function Header() {
+  const navigate = useNavigate()
   const [anchorElNav, setAnchorElNav] = React.useState(null)
   const [anchorElUser, setAnchorElUser] = React.useState(null)
 
@@ -111,7 +128,7 @@ function Header() {
   )
 
   return (
-    <AppBar position="static" class={styles.AppBg}>
+    <AppBar position="fixed" class={styles.AppBg}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box
@@ -178,7 +195,10 @@ function Header() {
               {pages.map((page) => (
                 <Button
                   key={page}
-                  onClick={handleCloseNavMenu}
+                  onClick={() => {
+                    handleCloseNavMenu()
+                    navigate(page.path)
+                  }}
                   sx={{
                     my: 2,
                     mx: 1,

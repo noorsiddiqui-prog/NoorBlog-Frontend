@@ -1,0 +1,66 @@
+.bodyCardBg {
+  background: #fffffe;
+  box-shadow: 6px 10px 13px rgba(215, 215, 215, 0.25);
+  border-radius: 12px;
+  padding-top: 20px;
+  padding-left: 16px;
+  // padding-right: 16px;
+  padding-bottom: 16px;
+  // width: 23%;
+  height: 425px;
+  cursor: pointer;
+}
+
+.bodyCardBg:hover {
+  box-shadow: 20px 20px 30px #c8c6c6, -20px -20px 30px #ffffff !important;
+  transition: 0.5s;
+  background-color: #f0f0ee;
+}
+
+@media screen and (max-width: 430px) {
+  .bodyCardBg {
+    background-color: #f8f8f8;
+  }
+}
+
+.bodyTypoh1 {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 25px;
+  text-transform: capitalize;
+  margin-top: 10px;
+  /* Black */
+
+  color: #2b2c2e;
+}
+
+.bodyTypoh1:hover {
+  cursor: pointer;
+}
+.bodyTypo2 {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height */
+
+  /* Black */
+
+  color: #4b4c4e;
+}
+
+.bodysubTypo {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  text-transform: capitalize;
+
+  /* Black */
+
+  color: #9d9ea2;
+}

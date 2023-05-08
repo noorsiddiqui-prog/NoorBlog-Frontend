@@ -14,6 +14,7 @@ const BrowseTheCategory = () => {
         paddingTop: '60px',
         pl: { xl: '200px', lg: '40px', md: '40px', sm: '40px', xs: '10px' },
         pr: { xl: '200px', lg: '40px', md: '40px', sm: '40px', xs: '10px' },
+        paddingBottom: '60px',
       }}
     >
       <TwoTitleHeaders

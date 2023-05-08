@@ -1,0 +1,20 @@
+.signupBg {
+  border-radius: 47px;
+  background: linear-gradient(145deg, #ceccd8, #c2bfcf);
+  box-shadow: 32px 32px 60px #d7d4e8, -32px -32px 60px #d5d4dd;
+  width: 80%;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  padding-top: 20px;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .signupBg {
+    width: 100%;
+    flex-direction: column;
+    padding-bottom: 30px;
+  }
+}

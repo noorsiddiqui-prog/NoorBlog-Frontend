@@ -64,7 +64,7 @@ const HeroSection = () => {
         pr: '20px',
         backgroundColor: '#EFF0F3',
         mt: '1px',
-        pt: '90px',
+        pt: '180px',
         pb: '90px',
         pl: { xl: '500px', lg: '80px', md: '70px', sm: '90px', xs: '10px' },
         pr: { xl: '500px', lg: '80px', md: '70px', sm: '90px', xs: '10px' },
