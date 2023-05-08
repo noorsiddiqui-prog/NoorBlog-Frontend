@@ -1,0 +1,38 @@
+.logoBox {
+  font-family: "Plus Jakarta Sans", sans-serif;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: flex-end;
+  padding: 0px;
+}
+
+.logo {
+  font-family: "Plus Jakarta Sans", sans-serif;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 45px;
+  color: #001858;
+  text-decoration: none;
+}
+.logo2 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 23px;
+  text-decoration: none;
+  color: #6246ea;
+}
+.footerbg {
+  background-color: #e4e5e9;
+}
+@media screen and (max-width: 425px) {
+  .footerbg {
+    margin-top: 20px;
+  }
+}

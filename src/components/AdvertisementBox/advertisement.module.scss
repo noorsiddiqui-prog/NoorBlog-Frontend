@@ -1,0 +1,57 @@
+.h1 {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 45px;
+  text-transform: capitalize;
+
+  /* Black */
+
+  color: #2b2c34;
+  margin-top: 16px;
+}
+
+.h2 {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 25px;
+  text-align: center;
+
+  /* Grey */
+
+  color: #c0c0c0;
+  margin-top: 10px;
+}
+@media screen and (max-width: 3000px) {
+  .searchbox {
+    display: flex;
+    margin-top: 20px;
+  }
+  .subscribeBtn {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .h1 {
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+  .h2 {
+    font-size: 14px;
+  }
+  .searchbox {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .subscribeBtn {
+    display: flex;
+    justify-content: center;
+  }
+}
