@@ -1,43 +1,92 @@
-import { Box, Typography } from '@mui/material'
-import React from 'react'
+import { Box, Input, Typography } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import styles from './add-post.module.scss'
 import { alpha, styled } from '@mui/material/styles'
-import InputBase from '@mui/material/InputBase'
+// import InputBase from '@mui/material/InputBase'
 import InputLabel from '@mui/material/InputLabel'
 import TextField from '@mui/material/TextField'
 import FormControl from '@mui/material/FormControl'
 import style1 from '../CategoryPageComp/FilterBar/filterbar.module.scss'
+import e from 'cors'
 
 const AddPostComp = () => {
-  const BootstrapInput = styled(InputBase)(({ theme }) => ({
-    'label + &': {
-      marginTop: theme.spacing(1),
-      fontFamily: 'Plus Jakarta Sans',
-      fontSize: '16px',
-      fontWeight: '400',
-      color: '#000',
-    },
-    '& .MuiInputBase-input': {
-      borderRadius: 4,
-      position: 'relative',
-      backgroundColor: theme.palette.mode === 'light' ? '#fcfcfb' : '#2b2b2b',
-      border: '1px solid #ced4da',
-      fontSize: 18,
-      width: '100%',
-      padding: '10px 12px',
-      transition: theme.transitions.create([
-        'border-color',
-        'background-color',
-        'box-shadow',
-      ]),
-      // Use the system font instead of the default Roboto font.
-      fontFamily: ['Plus Jakarta Sans'].join(','),
-      '&:focus': {
-        boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
-        borderColor: theme.palette.primary.main,
-      },
-    },
-  }))
+  // const BootstrapInput = styled(Input)(({ theme }) => ({
+  //   'label + &': {
+  //     marginTop: theme.spacing(1),
+  //     fontFamily: 'Plus Jakarta Sans',
+  //     fontSize: '16px',
+  //     fontWeight: '400',
+  //     color: '#000',
+  //   },
+  //   '& .MuiInputBase-input': {
+  //     borderRadius: 4,
+  //     position: 'relative',
+  //     backgroundColor: theme.palette.mode === 'light' ? '#fcfcfb' : '#2b2b2b',
+  //     border: '1px solid #ced4da',
+  //     fontSize: 18,
+  //     width: '100%',
+  //     padding: '10px 12px',
+  //     transition: theme.transitions.create([
+  //       'border-color',
+  //       'background-color',
+  //       'box-shadow',
+  //     ]),
+  //     // Use the system font instead of the default Roboto font.
+  //     fontFamily: ['Plus Jakarta Sans'].join(','),
+  //     '&:focus': {
+  //       boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
+  //       borderColor: theme.palette.primary.main,
+  //     },
+  //   },
+  // }))
+
+  const empty = {
+    name: '',
+    description: '',
+    image: null,
+  }
+  const [handle, setHandle] = useState(empty)
+
+  //state for fetching  data
+  const [formData, setFormData] = useState([])
+
+  const handler = (e) => {
+    setHandle({ ...handle, [e.target.name]: e.target.value })
+    console.log('addPost handler', handle)
+  }
+
+  const fileHandler = (e) => {
+    setHandle({ ...handle, [e.target.name]: e.target.files[0] })
+    console.log('addPost fileHandler', handle)
+  }
+
+  const submitForm = async (e) => {
+    e.preventDefault()
+
+    const myFormData = new FormData()
+    myFormData.append('name', handle.name)
+    myFormData.append('description', handle.description)
+    myFormData.append('image', handle.image)
+
+    await fetch('http://localhost:5000/post/add', {
+      method: 'POST',
+      body: myFormData,
+    })
+    console.log('formData', myFormData)
+  }
+
+  const showAPI = async () => {
+    await fetch('http://localhost:5000/post/get')
+      .then((res) => res.json())
+      .then((user) => {
+        setFormData(user)
+        console.log('user', user)
+      })
+  }
+
+  useEffect(() => {
+    // showAPI()
+  }, [])
   return (
     <div>
       <Box>
@@ -93,8 +142,11 @@ const AddPostComp = () => {
                   >
                     Title
                   </InputLabel>
-                  <BootstrapInput
+                  <Input
                     //   defaultValue="react-bootstrap"
+                    name="title"
+                    onChange={handler}
+                    value={handle.title}
                     multiline
                     id="bootstrap-input"
                     sx={{
@@ -125,7 +177,10 @@ const AddPostComp = () => {
                   >
                     Description
                   </InputLabel>
-                  <BootstrapInput
+                  <Input
+                    name="description"
+                    onChange={handler}
+                    value={handle.description}
                     //   defaultValue="react-bootstrap"
                     multiline
                     rows={6}
@@ -167,11 +222,17 @@ const AddPostComp = () => {
                   />
                 </Box>
                 <Box>
-                  <input type="file" name="image" id="image" />
+                  <input
+                    type="file"
+                    name="image"
+                    id="image"
+                    onChange={fileHandler}
+                  />
                 </Box>
 
                 <Box sx={{ mt: '40px' }}>
                   <button
+                    onClick={submitForm}
                     class={style1.button2}
                     style={{ backgroundColor: '#a092de' }}
                   >

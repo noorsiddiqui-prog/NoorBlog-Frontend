@@ -6,14 +6,15 @@ import { useNavigate } from 'react-router-dom'
 
 const BodyCard = ({ data, key }) => {
   const navigate = useNavigate()
-  const { title, image, IconImage, nameTitle, subDate, subTime, id } = data
+  const { title, image, IconImage, nameTitle, subDate, subTime, _id } = data
+
   return (
     <Box sx={{ position: 'relative' }}>
       <Box
         elevation
         class={styles.bodyCardBg}
-        key={key}
-        onClick={() => navigate(`/detail/${id}`)}
+        key={_id}
+        onClick={() => navigate(`/detail/${_id}`)}
       >
         <Box>
           <Box
@@ -23,7 +24,13 @@ const BodyCard = ({ data, key }) => {
               height: { lg: '210px', md: '210px', sm: '210px', xs: 'auto' },
             }}
           >
-            <img src={image} alt="" width="100%" height="auto" />
+            {/* <img src={image} alt="" width="100%" height="auto" /> */}
+            <img
+              src={image ? image : `http://localhost:7000/post/show/${image}`}
+              alt=""
+              width="100%"
+              height="auto"
+            />
           </Box>
           <Box>
             <Typography class={styles.bodyTypoh1}>{title}</Typography>

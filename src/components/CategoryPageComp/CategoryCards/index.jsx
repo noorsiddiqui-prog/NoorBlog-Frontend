@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import BodyCard from '../../BodyCards/BodyCard'
 import { Box, Grid } from '@mui/material'
 
@@ -10,7 +10,7 @@ const categoryCardData = [
     nameTitle: 'Noor Siddiqui',
     subDate: 'Jan 10, 2022',
     subTime: '3 min read',
-    id: 1,
+    _id: 1,
   },
   {
     title: 'Grid CSS make your life easier',
@@ -19,7 +19,7 @@ const categoryCardData = [
     nameTitle: 'Noor Siddiqui',
     subDate: 'Jan 10, 2022',
     subTime: '3 min read',
-    id: 2,
+    _id: 2,
   },
   {
     title: 'Make animated light mode and dark mode toggle with CSS',
@@ -28,7 +28,7 @@ const categoryCardData = [
     nameTitle: 'Noor Siddiqui',
     subDate: 'Jan 10, 2022',
     subTime: '3 min read',
-    id: 3,
+    _id: 3,
   },
   {
     title: 'Make tic tac toe games with react JS',
@@ -37,7 +37,7 @@ const categoryCardData = [
     nameTitle: 'Noor Siddiqui',
     subDate: 'Jan 10, 2022',
     subTime: '3 min read',
-    id: 4,
+    _id: 4,
   },
   {
     title: 'Flexbox CSS : Everything you need to know',
@@ -46,7 +46,7 @@ const categoryCardData = [
     nameTitle: 'Noor Siddiqui',
     subDate: 'Jan 10, 2022',
     subTime: '3 min read',
-    id: 5,
+    _id: 5,
   },
   {
     title: 'Grid CSS make your life easier',
@@ -55,7 +55,7 @@ const categoryCardData = [
     nameTitle: 'Noor Siddiqui',
     subDate: 'Jan 10, 2022',
     subTime: '3 min read',
-    id: 6,
+    _id: 6,
   },
   {
     title: '3 easy way to make div center',
@@ -64,7 +64,7 @@ const categoryCardData = [
     nameTitle: 'Noor Siddiqui',
     subDate: 'Jan 10, 2022',
     subTime: '3 min read',
-    id: 7,
+    _id: 7,
   },
   {
     title: 'Make animated light mode and dark mode toggle with CSS',
@@ -73,7 +73,7 @@ const categoryCardData = [
     nameTitle: 'Noor Siddiqui',
     subDate: 'Jan 10, 2022',
     subTime: '3 min read',
-    id: 8,
+    _id: 8,
   },
   {
     title: 'array in javasript - Learn JS #3',
@@ -82,7 +82,7 @@ const categoryCardData = [
     nameTitle: 'Noor Siddiqui',
     subDate: 'Jan 10, 2022',
     subTime: '3 min read',
-    id: 9,
+    _id: 9,
   },
   {
     title: 'Fundamental of javascript',
@@ -91,7 +91,7 @@ const categoryCardData = [
     nameTitle: 'Noor Siddiqui',
     subDate: 'Jan 10, 2022',
     subTime: '3 min read',
-    id: 10,
+    _id: 10,
   },
   {
     title: '7 project with javascript you must try for your portfolio',
@@ -100,7 +100,7 @@ const categoryCardData = [
     nameTitle: 'Noor Siddiqui',
     subDate: 'Jan 10, 2022',
     subTime: '3 min read',
-    id: 11,
+    _id: 11,
   },
   {
     title: 'make simple calculator with javascript',
@@ -109,7 +109,7 @@ const categoryCardData = [
     nameTitle: 'Noor Siddiqui',
     subDate: 'Jan 10, 2022',
     subTime: '3 min read',
-    id: 12,
+    _id: 12,
   },
   {
     title: 'first month of leaning react jS',
@@ -118,7 +118,7 @@ const categoryCardData = [
     nameTitle: 'Noor Siddiqui',
     subDate: 'Jan 10, 2022',
     subTime: '3 min read',
-    id: 13,
+    _id: 13,
   },
   {
     title: 'build markdown editor with react JS',
@@ -127,7 +127,7 @@ const categoryCardData = [
     nameTitle: 'Noor Siddiqui',
     subDate: 'Jan 10, 2022',
     subTime: '3 min read',
-    id: 14,
+    _id: 14,
   },
   {
     title: 'getting started with react JS',
@@ -136,7 +136,7 @@ const categoryCardData = [
     nameTitle: 'Noor Siddiqui',
     subDate: 'Jan 10, 2022',
     subTime: '3 min read',
-    id: 15,
+    _id: 15,
   },
   {
     title: 'Make tic tac toe games with react JS',
@@ -145,16 +145,34 @@ const categoryCardData = [
     nameTitle: 'Noor Siddiqui',
     subDate: 'Jan 10, 2022',
     subTime: '3 min read',
-    id: 16,
+    _id: 16,
   },
 ]
 
 const CategoryCards = () => {
+  const [formData, setFormData] = useState([])
+
+  const showAPI = async () => {
+    await fetch('http://localhost:7000/post/show')
+      .then((res) => res.json())
+      .then((user) => {
+        // setFormData(user)
+        const result = categoryCardData.concat(user)
+        setFormData(result)
+        console.log('user', user)
+      })
+  }
+
+  useEffect(() => {
+    showAPI()
+  }, [])
+
   return (
     <div>
       <Box>
         <Grid container spacing={2}>
-          {categoryCardData.map((item, index) => {
+          {/* {categoryCardData.map((item, index) => { */}
+          {formData.map((item, index) => {
             return (
               <>
                 <Grid spacing={2} item md={4} sm={6} xs={12} lg={4}>

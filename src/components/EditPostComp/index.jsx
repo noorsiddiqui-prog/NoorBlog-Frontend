@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../AddPostComp/add-post.module.scss'
 import { alpha, styled } from '@mui/material/styles'
 import InputBase from '@mui/material/InputBase'
@@ -7,6 +7,7 @@ import InputLabel from '@mui/material/InputLabel'
 import TextField from '@mui/material/TextField'
 import FormControl from '@mui/material/FormControl'
 import style1 from '../CategoryPageComp/FilterBar/filterbar.module.scss'
+import { useParams } from 'react-router-dom'
 
 const EditPostComp = () => {
   const BootstrapInput = styled(InputBase)(({ theme }) => ({
@@ -38,6 +39,56 @@ const EditPostComp = () => {
       },
     },
   }))
+
+  const { id } = useParams()
+  console.log('id', id)
+
+  const [formData, setFormData] = useState([])
+
+  const [handle, setHandle] = useState('')
+  const [getData, setGetData] = useState()
+
+  const handler = (e) => {
+    setHandle({ ...handle, [e.target.name]: e.target.value })
+    console.log('addPost handler', handle)
+  }
+
+  const fileHandler = (e) => {
+    setHandle({ ...handle, [e.target.name]: e.target.files[0] })
+    console.log('addPost fileHandler', handle)
+  }
+
+  const showAPI = async () => {
+    await fetch(`http://localhost:7000/post/show/${id}`)
+      .then((res) => res.json())
+      .then((user) => {
+        setFormData(user)
+        setGetData(id)
+        console.log(getData)
+
+        // const result = categoryCardData.concat(user)
+        // setFormData(result)
+        console.log('user', user)
+      })
+  }
+
+  useEffect(() => {
+    showAPI()
+  }, [])
+
+  //state for fetching  data
+
+  const submitForm = async (e, id) => {
+    e.preventDefault()
+
+    await fetch(`http://localhost:5000/post/update/${id}`, {
+      method: 'PUT',
+      headers: {
+        'content-type': ' application/json',
+      },
+      body: JSON.stringify(handle),
+    })
+  }
   return (
     <div>
       <Box>
@@ -95,7 +146,8 @@ const EditPostComp = () => {
                     Title
                   </InputLabel>
                   <BootstrapInput
-                    //   defaultValue="react-bootstrap"
+                    // defaultValue={item.title}
+                    onChange={handler}
                     multiline
                     id="bootstrap-input"
                     sx={{
@@ -127,7 +179,8 @@ const EditPostComp = () => {
                     Description
                   </InputLabel>
                   <BootstrapInput
-                    //   defaultValue="react-bootstrap"
+                    // defaultValue={item.description}
+                    onChange={handler}
                     multiline
                     rows={6}
                     id="bootstrap-input"
@@ -146,7 +199,12 @@ const EditPostComp = () => {
               <Box
                 sx={{
                   mt: '40px',
-                  ml: { lg: '180px', md: '180px', sm: '50px', xs: '50px' },
+                  ml: {
+                    lg: '180px',
+                    md: '180px',
+                    sm: '50px',
+                    xs: '50px',
+                  },
                 }}
               >
                 <Typography
@@ -161,18 +219,29 @@ const EditPostComp = () => {
                 </Typography>
                 <Box sx={{ width: '200px', height: '200px', mt: '20px' }}>
                   <img
+                    // src="./assets/images/Article_Image1.svg"
                     src="./assets/images/Article_Image1.svg"
+                    // item.image
+                    //   ? item.image
+                    //   :
+
                     alt=""
                     width="100%"
                     height="auto"
                   />
                 </Box>
                 <Box>
-                  <input type="file" name="image" id="image" />
+                  <input
+                    type="file"
+                    name="image"
+                    id="image"
+                    onChange={fileHandler}
+                  />
                 </Box>
 
                 <Box sx={{ mt: '40px' }}>
                   <button
+                    onClick={submitForm}
                     class={style1.button2}
                     style={{ backgroundColor: '#a092de' }}
                   >

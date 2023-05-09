@@ -21,9 +21,9 @@ function App() {
             <Route exact path="/" element={<LandingPage />} />
             <Route path="/category" element={<CategoriesPage />} />
             {/* <Route path="/detail/:id" element={<DetailPage />} /> */}
-            <Route path="/detail" element={<DetailPage />} />
+            <Route path="/detail/:id" element={<DetailPage />} />
             <Route path="/add-post" element={<AddPost />} />
-            <Route path="/edit-post" element={<EditPost />} />
+            <Route path="/edit-post/:id" element={<EditPost />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<LoginPage />} />
           </Routes>

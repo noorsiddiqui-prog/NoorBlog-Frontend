@@ -6,8 +6,10 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import FormControl from '@mui/material/FormControl'
 import FormLabel from '@mui/material/FormLabel'
 import styles from './filterbar.module.scss'
+import { useNavigate } from 'react-router-dom'
 
-const Filterbar = () => {
+const Filterbar = ({ sessionData }) => {
+  const navigate = useNavigate()
   return (
     <Box>
       <Box
@@ -120,10 +122,20 @@ const Filterbar = () => {
           </RadioGroup>
         </FormControl>
       </Box>
-
-      <Box sx={{ ml: '20px', mt: '40px' }}>
-        <button class={styles.button2}>Add Post</button>
-      </Box>
+      {!sessionData == null ? (
+        navigate('/login')
+      ) : (
+        <>
+          <Box sx={{ ml: '20px', mt: '40px' }}>
+            <button
+              onClick={() => navigate('/add-post')}
+              class={styles.button2}
+            >
+              Add Post
+            </button>
+          </Box>
+        </>
+      )}
     </Box>
   )
 }
