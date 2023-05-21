@@ -6,7 +6,23 @@ import { useNavigate } from 'react-router-dom'
 
 const BodyCard = ({ data, key }) => {
   const navigate = useNavigate()
-  const { title, image, IconImage, nameTitle, subDate, subTime, _id } = data
+  const {
+    title,
+    image,
+    IconImage,
+    nameTitle,
+    subDate,
+    subTime,
+    _id,
+    date,
+  } = data
+  // console.log('date', date?.split('T'))
+  const fullDateStr = date?.split('T')
+  console.log('date', fullDateStr && fullDateStr[0])
+  const currDateStr = fullDateStr && fullDateStr[0]
+  const timeStr = fullDateStr && fullDateStr[1].split('.')
+  const currTimeStr = timeStr && timeStr[0]
+  console.log('date1', currDateStr, currTimeStr)
 
   return (
     <Box sx={{ position: 'relative' }}>
@@ -25,12 +41,48 @@ const BodyCard = ({ data, key }) => {
             }}
           >
             {/* <img src={image} alt="" width="100%" height="auto" /> */}
+            {image && (
+              <img
+                src={
+                  image
+                  // `http://localhost:7000/${image}` &&
+                  // `http://localhost:7000/uploads//${image}`
+                }
+                // src={`http://localhost:7000/uploads//${image}`}
+                // src={`http://localhost:7000/${image}`}
+                // src={image}
+                alt=""
+                width="100%"
+                height="auto"
+              />
+            )}
             <img
-              src={image ? image : `http://localhost:7000/post/show/${image}`}
+              src={
+                `http://localhost:7000/${image}`
+                // `http://localhost:7000/uploads//${image}`
+              }
+              // src={`http://localhost:7000/uploads//${image}`}
+              // src={`http://localhost:7000/${image}`}
+              // src={image}
               alt=""
               width="100%"
               height="auto"
             />
+
+            {`http://localhost:7000/uploads//${image}` && (
+              <img
+                src={
+                  // `http://localhost:7000/${image}`
+                  `http://localhost:7000/uploads//${image}`
+                }
+                // src={`http://localhost:7000/uploads//${image}`}
+                // src={`http://localhost:7000/${image}`}
+                // src={image}
+                alt=""
+                width="100%"
+                height="auto"
+              />
+            )}
           </Box>
           <Box>
             <Typography class={styles.bodyTypoh1}>{title}</Typography>
@@ -55,7 +107,7 @@ const BodyCard = ({ data, key }) => {
                 <Box sx={{ ml: '10px', mr: '10px', alignItems: 'center' }}>
                   <Circle sx={{ width: '6px', height: '6px', mb: '4px' }} />
                 </Box>
-                <Typography class={styles.bodysubTypo}>{subTime}</Typography>
+                <Typography class={styles.bodysubTypo}>{subTime} read</Typography>
               </Box>
             </Box>
           </Box>

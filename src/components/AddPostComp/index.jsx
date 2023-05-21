@@ -7,7 +7,6 @@ import InputLabel from '@mui/material/InputLabel'
 import TextField from '@mui/material/TextField'
 import FormControl from '@mui/material/FormControl'
 import style1 from '../CategoryPageComp/FilterBar/filterbar.module.scss'
-import e from 'cors'
 
 const AddPostComp = () => {
   // const BootstrapInput = styled(Input)(({ theme }) => ({
@@ -41,7 +40,7 @@ const AddPostComp = () => {
   // }))
 
   const empty = {
-    name: '',
+    title: '',
     description: '',
     image: null,
   }
@@ -64,11 +63,11 @@ const AddPostComp = () => {
     e.preventDefault()
 
     const myFormData = new FormData()
-    myFormData.append('name', handle.name)
+    myFormData.append('title', handle.title)
     myFormData.append('description', handle.description)
     myFormData.append('image', handle.image)
 
-    await fetch('http://localhost:5000/post/add', {
+    await fetch('http://localhost:7000/post/create', {
       method: 'POST',
       body: myFormData,
     })
@@ -76,7 +75,7 @@ const AddPostComp = () => {
   }
 
   const showAPI = async () => {
-    await fetch('http://localhost:5000/post/get')
+    await fetch('http://localhost:7000/post/show')
       .then((res) => res.json())
       .then((user) => {
         setFormData(user)
@@ -87,6 +86,7 @@ const AddPostComp = () => {
   useEffect(() => {
     // showAPI()
   }, [])
+  useEffect(() => {}, [handle.image])
   return (
     <div>
       <Box>
@@ -215,7 +215,7 @@ const AddPostComp = () => {
                 </Typography>
                 <Box sx={{ width: '200px', height: '200px', mt: '20px' }}>
                   <img
-                    src="./assets/images/Article_Image1.svg"
+                    src={`handle.image` || './assets/images/Article_Image1.svg'}
                     alt=""
                     width="100%"
                     height="auto"

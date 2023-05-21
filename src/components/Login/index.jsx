@@ -4,6 +4,18 @@ import { Box, Typography } from '@mui/material'
 import style1 from '../CategoryPageComp/FilterBar/filterbar.module.scss'
 
 const Login = () => {
+
+    const google = () => {
+    window.open("http://localhost:5000/auth/google", "_self")
+  }
+  const facebook = () => {
+    window.open("http://localhost:5000/auth/facebook", "_self")
+  }
+  const github = () => {
+    window.open("http://localhost:5000/auth/github", "_self")
+  }
+
+  
   //state for handling login
   const empty = {
     email: '',
@@ -104,6 +116,35 @@ const Login = () => {
             Login
           </button>
         </Box>
+      </Box>
+
+      <Box style={{display: "flex"}}>
+        <div className="center" style={{marginLeft: "40px", marginRight: "40px"}} >
+          <div className="line" />
+          <div className="or">OR</div>
+        </div>
+        <div className="left">
+          <div className="loginButton google"
+            onClick={google}
+          >
+            <img src="./assets/images/google.png" alt="" className="icon" />
+            Google
+          </div>
+          <div className="loginButton facebook"
+            onClick={facebook}
+          >
+            <img src="./assets/images/facebook.png" alt="" className="icon" />
+            Facebook
+          </div>
+          <div className="loginButton github"
+            onClick={github}
+          >
+            <img src="./assets/images/github.png" alt="" className="icon" />
+            Github
+          </div>
+        </div>
+        
+        
       </Box>
     </Box>
   )

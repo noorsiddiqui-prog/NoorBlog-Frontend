@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Typography, Input } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import styles from '../AddPostComp/add-post.module.scss'
 import { alpha, styled } from '@mui/material/styles'
@@ -10,42 +10,42 @@ import style1 from '../CategoryPageComp/FilterBar/filterbar.module.scss'
 import { useParams } from 'react-router-dom'
 
 const EditPostComp = () => {
-  const BootstrapInput = styled(InputBase)(({ theme }) => ({
-    'label + &': {
-      marginTop: theme.spacing(1),
-      fontFamily: 'Plus Jakarta Sans',
-      fontSize: '16px',
-      fontWeight: '400',
-      color: '#000',
-    },
-    '& .MuiInputBase-input': {
-      borderRadius: 4,
-      position: 'relative',
-      backgroundColor: theme.palette.mode === 'light' ? '#fcfcfb' : '#2b2b2b',
-      border: '1px solid #ced4da',
-      fontSize: 18,
-      width: '100%',
-      padding: '10px 12px',
-      transition: theme.transitions.create([
-        'border-color',
-        'background-color',
-        'box-shadow',
-      ]),
-      // Use the system font instead of the default Roboto font.
-      fontFamily: ['Plus Jakarta Sans'].join(','),
-      '&:focus': {
-        boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
-        borderColor: theme.palette.primary.main,
-      },
-    },
-  }))
+  // const BootstrapInput = styled(InputBase)(({ theme }) => ({
+  //   'label + &': {
+  //     marginTop: theme.spacing(1),
+  //     fontFamily: 'Plus Jakarta Sans',
+  //     fontSize: '16px',
+  //     fontWeight: '400',
+  //     color: '#000',
+  //   },
+  //   '& .MuiInputBase-input': {
+  //     borderRadius: 4,
+  //     position: 'relative',
+  //     backgroundColor: theme.palette.mode === 'light' ? '#fcfcfb' : '#2b2b2b',
+  //     border: '1px solid #ced4da',
+  //     fontSize: 18,
+  //     width: '100%',
+  //     padding: '10px 12px',
+  //     transition: theme.transitions.create([
+  //       'border-color',
+  //       'background-color',
+  //       'box-shadow',
+  //     ]),
+  //     // Use the system font instead of the default Roboto font.
+  //     fontFamily: ['Plus Jakarta Sans'].join(','),
+  //     '&:focus': {
+  //       boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
+  //       borderColor: theme.palette.primary.main,
+  //     },
+  //   },
+  // }))
 
   const { id } = useParams()
   console.log('id', id)
 
   const [formData, setFormData] = useState([])
 
-  const [handle, setHandle] = useState('')
+  const [handle, setHandle] = useState()
   const [getData, setGetData] = useState()
 
   const handler = (e) => {
@@ -58,7 +58,7 @@ const EditPostComp = () => {
     console.log('addPost fileHandler', handle)
   }
 
-  const showAPI = async () => {
+  const showAPI = async (id) => {
     await fetch(`http://localhost:7000/post/show/${id}`)
       .then((res) => res.json())
       .then((user) => {
@@ -73,21 +73,38 @@ const EditPostComp = () => {
   }
 
   useEffect(() => {
-    showAPI()
+    showAPI(id)
   }, [])
 
   //state for fetching  data
 
-  const submitForm = async (e, id) => {
-    e.preventDefault()
+  const updateInit = {
+    title: formData.title,
+    description: formData.description,
+    image: formData.image,
+  }
 
-    await fetch(`http://localhost:5000/post/update/${id}`, {
+  const [updateData, setUpdateData] = useState([])
+
+  const submitForm = async (id) => {
+    // e.preventDefault()
+    console.log('id update', id)
+
+    const myFormData = new FormData()
+    myFormData.append('title', handle.title)
+    myFormData.append('description', handle.description)
+    myFormData.append('image', handle.image)
+
+    await fetch(`http://localhost:7000/post/update/${id}`, {
       method: 'PUT',
-      headers: {
-        'content-type': ' application/json',
-      },
-      body: JSON.stringify(handle),
+      // headers: {
+      //   'content-type': 'multipart/form-data',
+      // },
+      // body: JSON.stringify(handle),
+      // body: handle,
+      body: myFormData,
     })
+    console.log(myFormData)
   }
   return (
     <div>
@@ -145,11 +162,12 @@ const EditPostComp = () => {
                   >
                     Title
                   </InputLabel>
-                  <BootstrapInput
+                  <Input
                     // defaultValue={item.title}
                     onChange={handler}
                     multiline
                     id="bootstrap-input"
+                    name="title"
                     sx={{
                       width: {
                         lg: '350px',
@@ -178,12 +196,13 @@ const EditPostComp = () => {
                   >
                     Description
                   </InputLabel>
-                  <BootstrapInput
+                  <Input
                     // defaultValue={item.description}
                     onChange={handler}
                     multiline
                     rows={6}
                     id="bootstrap-input"
+                    name="description"
                     sx={{
                       width: {
                         lg: '350px',
@@ -241,7 +260,9 @@ const EditPostComp = () => {
 
                 <Box sx={{ mt: '40px' }}>
                   <button
-                    onClick={submitForm}
+                    onClick={() => {
+                      submitForm(id)
+                    }}
                     class={style1.button2}
                     style={{ backgroundColor: '#a092de' }}
                   >

@@ -23,7 +23,9 @@ import InboxIcon from '@mui/icons-material/MoveToInbox'
 import MailIcon from '@mui/icons-material/Mail'
 import styles from './header.module.scss'
 import SearchIcon from '@mui/icons-material/Search'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import Cookie from 'js-cookie'
+import { useCookies } from 'react-cookie'
 
 const pages = [
   {
@@ -58,7 +60,23 @@ const pages = [
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
 function Header() {
-  const navigate = useNavigate()
+      const navigate = useNavigate()
+    const [cookie, setCookie, removeCookie] = useCookies();
+    
+    // const logout = () => {
+    //     window.open("http://localhost:5000/auth/logout", "_self");
+    //     // Cookie.remove('session')
+    //     // removeCookie('session');
+    //     // navigate("/login")
+    //     // removeCookie('session', { path: '/', domain: 'localhost' });
+
+
+    // }
+const logout = () => {
+    window.open("http://localhost:5000/auth/logout", "_self");
+  };
+
+
   const [anchorElNav, setAnchorElNav] = React.useState(null)
   const [anchorElUser, setAnchorElUser] = React.useState(null)
 
